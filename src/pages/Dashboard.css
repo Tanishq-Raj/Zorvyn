@@ -1,0 +1,42 @@
+.dashboard { display: flex; flex-direction: column; }
+
+.chart-card { padding: 20px; }
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.chart-header h3 { font-size: 16px; font-weight: 600; }
+.chart-sub { font-size: 12px; color: var(--text-muted); }
+.see-all-link {
+  font-size: 13px;
+  color: var(--accent-light);
+  text-decoration: none;
+  font-weight: 500;
+}
+.see-all-link:hover { text-decoration: underline; }
+
+.chart-tooltip {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  box-shadow: var(--shadow);
+}
+.tooltip-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.category-chip {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}

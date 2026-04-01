@@ -1,0 +1,79 @@
+.insights-page { display: flex; flex-direction: column; }
+
+.chart-card { padding: 20px; }
+.chart-header-row { margin-bottom: 16px; }
+.chart-header-row h3 { font-size: 16px; font-weight: 600; }
+.chart-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+.chart-tooltip {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  box-shadow: var(--shadow);
+}
+.tooltip-label { font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+
+/* Observation cards */
+.observation-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px;
+}
+.obs-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--obs-color) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--obs-color) 25%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--obs-color);
+  flex-shrink: 0;
+}
+.observation-card p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }
+
+/* Category bars */
+.category-bars { display: flex; flex-direction: column; gap: 14px; }
+
+.cat-row { display: flex; align-items: center; gap: 12px; }
+
+.cat-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 160px;
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+.cat-bar-wrap {
+  flex: 1;
+  background: var(--bg-input);
+  border-radius: 99px;
+  height: 8px;
+  overflow: hidden;
+}
+.cat-bar {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.6s ease;
+  min-width: 4px;
+}
+
+.cat-values {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  white-space: nowrap;
+}
+.cat-pct { font-size: 12px; color: var(--text-muted); width: 42px; text-align: right; }
+.cat-amt { font-size: 13px; font-weight: 600; color: var(--text-primary); width: 80px; text-align: right; }
