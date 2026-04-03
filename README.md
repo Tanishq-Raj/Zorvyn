@@ -16,6 +16,20 @@ A premium, high-performance finance management dashboard built for the **Finance
 
 Zorvyn is a financial tracking application designed to help users understand their spending patterns and manage transactions with ease. It emphasizes a **premium user experience** through modern design principles and interactive data storytelling.
 
+---
+
+## 📸 Visual Showcase
+
+| **Main Dashboard** | **Financial Insights** |
+|:---:|:---:|
+| ![Dashboard](./public/Dashboard.png) | ![Insights](./public/Insights.png) |
+
+| **AI Insights** | **Transactions Manager** |
+|:---:|:---:|
+| ![AI Insights](./public/AI%20insights.png) | ![Transactions](./public/Transactions.png) |
+
+---
+
 ### ✅ Core Requirements Implemented
 
 - **📊 Dashboard Overview**:
@@ -61,23 +75,6 @@ Zorvyn is a financial tracking application designed to help users understand the
 ### 3. Recharts for Visualization
 **Decision:** Integrated Recharts for all data visualizations.  
 **Reasoning:** Recharts is built on top of D3 but provides a declarative, React-friendly API. It is highly responsive and fits perfectly with the project's interactive requirements.
-
-### 4. RBAC Simulation
-**Decision:** Implemented role switching via a custom global state flag.  
-**Reasoning:** Since no backend was required, a global `role` state was the most direct way to demonstrate how the UI adapts to different permissions (e.g., hiding "Add Transaction" buttons for Viewers).
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v18+)
-- npm or yarn
-
-### Installation
-1. `git clone https://github.com/Tanishq-Raj/Zorvyn.git`
-2. `npm install`
-3. `npm run dev`
 
 ---
 
