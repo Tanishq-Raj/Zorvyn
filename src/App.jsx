@@ -6,12 +6,14 @@ import Topbar from './components/Layout/Topbar';
 import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
 import Insights from './pages/Insights';
+import Advisor from './pages/Advisor';
 import MeshBackground from './components/MeshBackground/MeshBackground';
 
 const PAGE_TITLES = {
   '/': 'Dashboard',
   '/transactions': 'Transactions',
   '/insights': 'Insights',
+  '/advisor': 'AI Advisor',
 };
 
 export default function App() {
@@ -34,6 +36,7 @@ export default function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/transactions" element={<Transactions />} />
             <Route path="/insights" element={<Insights />} />
+            <Route path="/advisor" element={<Advisor />} />
           </Routes>
         </div>
       </div>

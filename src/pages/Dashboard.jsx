@@ -8,6 +8,9 @@ import { Wallet, ArrowUpCircle, ArrowDownCircle, PiggyBank, ArrowRight } from 'l
 import { Link } from 'react-router-dom';
 import useStore from '../store/useStore';
 import SummaryCard from '../components/SummaryCard';
+import QuickTransfer from '../components/DashboardFeatures/QuickTransfer';
+import GoalCard from '../components/DashboardFeatures/GoalCard';
+import UpcomingBills from '../components/DashboardFeatures/UpcomingBills';
 import { generateMonthlyData, generateCategorySpending } from '../data/mockData';
 import './Dashboard.css';
 
@@ -105,108 +108,114 @@ export default function Dashboard() {
         />
       </motion.div>
 
-      {/* Charts */}
-      <motion.div variants={item} className="grid-2" style={{ marginTop: 24 }}>
-        {/* Balance Trend */}
-        <motion.div 
-          className="card chart-card"
-          whileHover={{ boxShadow: 'var(--shadow)' }}
-        >
-          <div className="chart-header">
-            <h3>Balance Trend</h3>
-            <span className="chart-sub">{topMonth.name ? `Best month: ${topMonth.name} (${fmt(topMonth.balance)})` : ''}</span>
-          </div>
-          <ResponsiveContainer width="100%" height={240}>
-            <AreaChart data={monthlyData} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
-              <defs>
-                <linearGradient id="balanceGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
-                  <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
-                </linearGradient>
-                <linearGradient id="incomeGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#22c55e" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis dataKey="name" tick={{ fill: '#64748b', fontSize: 12 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: '#64748b', fontSize: 12 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v / 1000}k`} />
-              <Tooltip content={<CustomTooltip />} />
-              <Area type="monotone" dataKey="income" name="Income" stroke="#22c55e" fill="url(#incomeGrad)" strokeWidth={2} dot={false} />
-              <Area type="monotone" dataKey="expenses" name="Expenses" stroke="#f43f5e" fill="none" strokeWidth={2} strokeDasharray="5 3" dot={false} />
-              <Area type="monotone" dataKey="balance" name="Balance" stroke="#6366f1" fill="url(#balanceGrad)" strokeWidth={2.5} dot={{ r: 4, fill: '#6366f1' }} />
-            </AreaChart>
-          </ResponsiveContainer>
-        </motion.div>
+      <motion.div variants={item} className="dashboard-grid">
+        {/* Main Left Column */}
+        <div className="main-column">
+          {/* Balance Trend */}
+          <motion.div 
+            className="card chart-card"
+            whileHover={{ boxShadow: 'var(--shadow)' }}
+          >
+            <div className="chart-header">
+              <h3>Balance Trend</h3>
+              <span className="chart-sub">{topMonth.name ? `Best month: ${topMonth.name} (${fmt(topMonth.balance)})` : ''}</span>
+            </div>
+            
+            <ResponsiveContainer width="100%" height={260}>
+              <AreaChart data={monthlyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="balanceGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#6366f1" stopOpacity={0.3}/>
+                    <stop offset="100%" stopColor="#6366f1" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                <XAxis dataKey="name" stroke="var(--text-muted)" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis stroke="var(--text-muted)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(val) => `$${val}`} />
+                <Tooltip 
+                  contentStyle={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border)', borderRadius: '12px' }}
+                  itemStyle={{ color: 'var(--text-primary)', fontWeight: 600 }}
+                  labelStyle={{ color: 'var(--text-muted)', marginBottom: 4 }}
+                  formatter={(val) => fmt(val)}
+                />
+                <Area type="monotone" dataKey="balance" name="Balance" stroke="#6366f1" fill="url(#balanceGrad)" strokeWidth={2.5} dot={{ r: 4, fill: '#6366f1' }} />
+              </AreaChart>
+            </ResponsiveContainer>
+          </motion.div>
 
-        {/* Spending Breakdown */}
-        <motion.div 
-          className="card chart-card"
-          whileHover={{ boxShadow: 'var(--shadow)' }}
-        >
-          <div className="chart-header">
-            <h3>Spending Breakdown</h3>
-            <span className="chart-sub">By category</span>
-          </div>
-          <ResponsiveContainer width="100%" height={240}>
-            <PieChart>
-              <Pie
-                data={categoryData.slice(0, 7)}
-                cx="42%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={95}
-                paddingAngle={3}
-                dataKey="value"
-              >
-                {categoryData.slice(0, 7).map((entry, i) => (
-                  <Cell key={i} fill={entry.color} stroke="transparent" />
-                ))}
-              </Pie>
-              <Tooltip formatter={(v) => fmt(v)} />
-              <Legend
-                formatter={(value) => <span style={{ color: 'var(--text-secondary)', fontSize: 12 }}>{value}</span>}
-                iconType="circle"
-                iconSize={8}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-        </motion.div>
-      </motion.div>
-
-      {/* Recent Transactions */}
-      <motion.div variants={item} className="card" style={{ marginTop: 24 }}>
-        <div className="chart-header" style={{ padding: '20px 20px 0' }}>
-          <h3>Recent Activity</h3>
-          <Link to="/transactions" className="see-all-link" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            View all <ArrowRight size={14} />
-          </Link>
+          {/* Recent Transactions */}
+          <motion.div className="card" whileHover={{ boxShadow: 'var(--shadow)' }}>
+            <div className="chart-header" style={{ padding: '20px 20px 0' }}>
+              <h3>Recent Activity</h3>
+              <Link to="/transactions" className="see-all-link" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                View all <ArrowRight size={14} />
+              </Link>
+            </div>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th style={{ textAlign: 'right' }}>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {transactions.slice(0, 6).map((tx) => (
+                    <tr key={tx.id}>
+                      <td style={{ fontWeight: 500 }}>{tx.description}</td>
+                      <td><span className="category-pill">{tx.category}</span></td>
+                      <td style={{ textAlign: 'right', fontWeight: 600, color: tx.type === 'income' ? 'var(--income)' : 'var(--expense)' }}>
+                        {tx.type === 'income' ? '+' : '-'}{fmt(tx.amount)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
         </div>
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Type</th>
-                <th style={{ textAlign: 'right' }}>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.slice(0, 6).map((tx) => (
-                <tr key={tx.id}>
-                  <td style={{ color: 'var(--text-muted)', fontSize: 13 }}>{new Date(tx.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
-                  <td style={{ fontWeight: 500 }}>{tx.description}</td>
-                  <td><span className="category-chip">{tx.category}</span></td>
-                  <td><span className={`badge badge-${tx.type}`}>{tx.type}</span></td>
-                  <td style={{ textAlign: 'right', fontWeight: 600, color: tx.type === 'income' ? 'var(--income)' : 'var(--expense)' }}>
-                    {tx.type === 'income' ? '+' : '-'}{fmt(tx.amount)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+
+        {/* Side Right Column */}
+        <div className="side-column">
+          <QuickTransfer />
+          <GoalCard />
+          <UpcomingBills />
+          
+          {/* Spending Breakdown */}
+          <motion.div 
+            className="card chart-card"
+            whileHover={{ boxShadow: 'var(--shadow)' }}
+          >
+            <div className="chart-header">
+              <h3>Spending Breakdown</h3>
+              <span className="chart-sub">By category</span>
+            </div>
+            <ResponsiveContainer width="100%" height={240}>
+              <PieChart>
+                <Tooltip 
+                  contentStyle={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border)', borderRadius: '12px' }}
+                  itemStyle={{ color: 'var(--text-primary)', fontWeight: 600 }}
+                  formatter={(val) => fmt(val)}
+                />
+                <Legend iconType="circle" wrapperStyle={{ fontSize: 13, color: 'var(--text-primary)' }} />
+                <Pie
+                  data={categoryData}
+                  cx="50%"
+                  cy="45%"
+                  innerRadius={60}
+                  outerRadius={80}
+                  paddingAngle={5}
+                  dataKey="value"
+                  stroke="none"
+                >
+                  {categoryData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+          </motion.div>
         </div>
       </motion.div>
     </motion.div>

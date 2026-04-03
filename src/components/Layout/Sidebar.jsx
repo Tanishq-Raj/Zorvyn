@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, ArrowLeftRight, Lightbulb, TrendingUp } from 'lucide-react';
+import { LayoutDashboard, ArrowLeftRight, Lightbulb, TrendingUp, Brain } from 'lucide-react';
 import './Sidebar.css';
 
 const NAV = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/transactions', icon: ArrowLeftRight, label: 'Transactions' },
   { to: '/insights', icon: Lightbulb, label: 'Insights' },
+  { to: '/advisor', icon: Brain, label: 'AI Advisor' },
 ];
 
 export default function Sidebar() {
