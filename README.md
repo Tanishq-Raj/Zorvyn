@@ -81,6 +81,34 @@ Zorvyn is a financial tracking application designed to help users understand the
 
 ---
 
+## 🛠️ System Architecture
+
+The following flowchart illustrates the high-level architecture and data flow of the Zorvyn Finance Dashboard:
+
+```mermaid
+graph TD
+    User([User]) --> UI[Frontend - React + Vite]
+    
+    subgraph Components
+        UI --> TB[Topbar - Role Switcher & Theme]
+        UI --> SB[Sidebar - Navigation]
+        UI --> PF[Pages - Dashboard, Insights, Transactions]
+    end
+    
+    subgraph State_Management
+        PF --> ZS[Zustand Store]
+        TB --> ZS
+        ZS --> LS[(Local Storage - Persistence)]
+    end
+    
+    subgraph Logic
+        PF --> RA[Recharts - Data Visualization]
+        PF --> FA[AI Financial Advisor - Insights]
+    end
+```
+
+---
+
 ## 📂 Project Structure
 - `src/components`: UI components (Topbar, Sidebar, Charts, Modals).
 - `src/pages`: Main views (Dashboard, Insights, Transactions).
@@ -89,4 +117,4 @@ Zorvyn is a financial tracking application designed to help users understand the
 
 ---
 
-Built with ❤️ for the Finance Dashboard UI Assignment.
+**Built with ❤️ by [Tanishq Raj](https://github.com/Tanishq-Raj)**
