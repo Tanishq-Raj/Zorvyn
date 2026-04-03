@@ -3,7 +3,7 @@
 A premium, high-performance finance management dashboard built for the **Finance Dashboard UI Assignment**. This project features a stunning glassmorphic UI, real-time data visualization, and an AI-driven financial advisor.
 
 **GitHub Repository:** [https://github.com/Tanishq-Raj/Zorvyn.git](https://github.com/Tanishq-Raj/Zorvyn.git)  
-**Live Demo:** [https://zorvyn.vercel.app](https://zorvyn.vercel.app) (Replace with your actual live link)
+**Live Demo:** (https://zorvyn-finance-dashboard-ui-eight.vercel.app) (Replace with your actual live link)
 
 ![React](https://img.shields.io/badge/React-19-blue?logo=react)
 ![Vite](https://img.shields.io/badge/Vite-8-purple?logo=vite)
@@ -114,4 +114,4 @@ graph TD
 
 ---
 
-**Built with ❤️ by [Tanishq Raj](https://github.com/Tanishq-Raj)**
+**Built by [Tanishq Raj](https://github.com/Tanishq-Raj)**
